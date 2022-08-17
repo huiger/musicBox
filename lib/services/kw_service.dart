@@ -3,7 +3,6 @@ import 'dart:collection';
 
 import 'package:get/get.dart';
 import 'package:music_box/models/kw_entity.dart';
-import 'package:music_box/net/impl/kuwo_request.dart';
 import 'package:music_box/net/request_client.dart';
 import 'package:music_box/utils/common_utils.dart';
 

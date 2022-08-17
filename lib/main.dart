@@ -7,8 +7,9 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:music_box/page/home/home_logic.dart';
 import 'package:music_box/page/home/home_view.dart';
-import 'package:music_box/page/kw/kw_service.dart';
+import 'package:music_box/services/kw_service.dart';
 import 'package:music_box/page/player/player_logic.dart';
+import 'package:music_box/services/player_service.dart';
 import 'package:music_box/utils/app_colors.dart';
 import 'package:music_box/utils/sp_util.dart';
 
@@ -28,8 +29,9 @@ void main() async {
 }
 
 Future<void> initServices() async {
-  await Get.putAsync(() async => KwService(), permanent: true);//API
+  await Get.putAsync(() async => KwService());//API
   await Get.putAsync(() async => HomeLogic(), permanent: true);
+  await Get.putAsync(() async => PlayerService());
 }
 
 class MyApp extends StatelessWidget {

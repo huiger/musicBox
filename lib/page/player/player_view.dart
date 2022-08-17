@@ -193,7 +193,7 @@ class PlayerPage extends StatelessWidget {
                   size: 25,
                 ),
                 onTap: () {
-                  AudioPlayerUtil.previousMusic();
+                  _homeLogic.prev();
                 },
               ),
               Expanded(child: Center(
@@ -222,7 +222,7 @@ class PlayerPage extends StatelessWidget {
                   size: 25,
                 ),
                 onTap: () {
-                  AudioPlayerUtil.nextMusic();
+                  _homeLogic.next();
                 },
               ),
               const SizedBox(width: 70),

@@ -31,7 +31,6 @@ class HomeLogic extends GetxController with GetTickerProviderStateMixin {
       progressNotifier.value = p0.floorToDouble();
       /// 当前进度
       state.playerCurrentTime = CommonUtils.getPlayerTimes(p0);
-      debugPrint('curr:$p0 /// time:${state.playerCurrentTime} / ${state.playerMaxTime}');
       update();
     },);
   }
@@ -43,9 +42,18 @@ class HomeLogic extends GetxController with GetTickerProviderStateMixin {
     update();
   }
 
+  /// 上一曲
+  void prev(){
+    AudioPlayerUtil.previousMusic();
+    state.musicModel = AudioPlayerUtil.musicModel;
+    update();
+  }
+
   /// 下一曲
   void next(){
     AudioPlayerUtil.nextMusic();
+    state.musicModel = AudioPlayerUtil.musicModel;
+    update();
   }
 
   /// 调整进度

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/home/home_logic.dart';
-import 'package:music_box/page/home/home_state.dart';
-import 'package:music_box/page/kw/kw_service.dart';
 import 'package:music_box/page/kw/kw_state.dart';
+import 'package:music_box/services/kw_service.dart';
+import 'package:music_box/services/player_service.dart';
 import 'package:music_box/utils/audio_player.dart';
 
 
@@ -12,6 +12,7 @@ class KwLogic extends GetxController {
   final KwState state = KwState();
   final KwService service = Get.find();
   final HomeLogic homeLogic = Get.find();
+  final PlayerService playerService = Get.find();
 
   @override
   void onInit() async {
@@ -27,7 +28,8 @@ class KwLogic extends GetxController {
 
     debugPrint("playerUrl = ${model.url}");
 
-    AudioPlayerUtil.playerHandle(model: model);
+    // AudioPlayerUtil.playerHandle(model: model);
+    AudioPlayerUtil.listPlayerHandle(musicModels: playerService.addMusic(model), musicModel: model);
     homeLogic.updatePlayer(model);
   }
 }

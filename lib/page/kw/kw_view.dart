@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:music_box/models/kw_entity.dart';
 import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/kw/kw_state.dart';
+import 'package:music_box/utils/app_colors.dart';
 import 'package:music_box/utils/common_utils.dart';
 
 import 'kw_logic.dart';
@@ -41,7 +42,7 @@ class KwPage extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            Text('${index + 1}'),
+            Text('${index + 1}', style: const TextStyle(color: AppColors.color_666666, fontSize: 16)),
             const SizedBox(
               width: 10,
             ),
@@ -49,8 +50,9 @@ class KwPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(music?.name ?? ""),
-                  Text(music?.artist ?? ""),
+                  Text(music?.name ?? "", style: const TextStyle(color: AppColors.color_333333, fontSize: 14)),
+                  const SizedBox(height: 5,),
+                  Text('${music?.artist} - ${music?.album}', style: const TextStyle(color: AppColors.color_999999, fontSize: 10)),
                 ],
               ),
             )
