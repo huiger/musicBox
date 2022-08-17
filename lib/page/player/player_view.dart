@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_box/common/style/icon_fonts.dart';
+import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/home/home_logic.dart';
 import 'package:music_box/page/home/home_state.dart';
 import 'package:music_box/page/player/player_state.dart';
@@ -195,18 +196,25 @@ class PlayerPage extends StatelessWidget {
                   AudioPlayerUtil.previousMusic();
                 },
               ),
-              Expanded(
-                  child: InkWell(
-                    child: const Icon(
-                      IconFonts.player_play,
-                      color: Colors.white,
-                      size: 40,
-                    ),
-                    onTap: () {
-                      AudioPlayerUtil.previousMusic();
-                    },
+              Expanded(child: Center(
+                child: InkWell(
+                  child: AnimatedIcon(
+                    icon: AnimatedIcons.pause_play,
+                    progress: _homeLogic.ctrl,
+                    color: Colors.white,
+                    size: 40,
                   ),
-                  flex: 1),
+                  onTap: () {
+                    if (_homeLogic.ctrl.status == AnimationStatus.completed) {
+                      _homeLogic.ctrl.reverse();
+                    } else if (_homeLogic.ctrl.status == AnimationStatus.dismissed) {
+                      _homeLogic.ctrl.forward();
+                    }
+                    AudioPlayerUtil.playerHandle(
+                        model: _homeLogic.state.musicModel ?? MusicModel());
+                  },
+                ),
+              ), flex: 1,),
               InkWell(
                 child: const Icon(
                   IconFonts.player_next,
