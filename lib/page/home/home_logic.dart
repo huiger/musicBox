@@ -29,8 +29,9 @@ class HomeLogic extends GetxController with GetTickerProviderStateMixin {
 
     AudioPlayerUtil.positionListener(key: this, listener: (p0) {
       progressNotifier.value = p0.floorToDouble();
-      state.playerTime = CommonUtils.getPlayerTimes(p0, AudioPlayerUtil.musicModel?.duration ?? 0);
-      debugPrint('curr:$p0 / time:${state.playerTime}');
+      /// 当前进度
+      state.playerCurrentTime = CommonUtils.getPlayerTimes(p0);
+      debugPrint('curr:$p0 /// time:${state.playerCurrentTime} / ${state.playerMaxTime}');
       update();
     },);
   }
@@ -38,6 +39,7 @@ class HomeLogic extends GetxController with GetTickerProviderStateMixin {
   /// 播放、暂停
   void updatePlayer(MusicModel model){
     state.musicModel = model;
+    state.playerMaxTime = CommonUtils.getPlayerTimes(model.duration);
     update();
   }
 

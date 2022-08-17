@@ -17,6 +17,7 @@ class HomeState {
 
   MusicModel? musicModel;
 
-  String playerTime = '00:00 / 00:00';
+  String playerCurrentTime = '00:00';
+  String playerMaxTime = '00:00';
 
 }

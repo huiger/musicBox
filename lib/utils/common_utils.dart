@@ -30,11 +30,7 @@ class CommonUtils{
     return 'http://artistpicserver.kuwo.cn/pic.web?corp=kuwo&type=rid_pic&pictype=500&size=500&rid=$id&_=${getNowTime()}';
   }
 
-  static String getPlayerTimes(int current, int max){
-    return '${_parseTime(current)} / ${_parseTime(max)}';
-  }
-
-  static String _parseTime(int time){
+  static String getPlayerTimes(int time){
     var h = (time / 60).toStringAsFixed(1);
     var s = (time % 60).toStringAsFixed(1);
     return '${h.substring(0, h.lastIndexOf('.')).padLeft(2, '0')}:${s.substring(0, s.lastIndexOf('.')).padLeft(2, '0')}';

@@ -144,7 +144,7 @@ class HomePage extends StatelessWidget {
                     Expanded(
                         child: Text('-', style: const TextStyle(fontSize: 12))),
                     Text(
-                      _logic.state.playerTime,
+                      '${_logic.state.playerCurrentTime} / ${_logic.state.playerMaxTime}',
                       style: const TextStyle(
                           color: AppColors.color_cccccc, fontSize: 10),
                     )
