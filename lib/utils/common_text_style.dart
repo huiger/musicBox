@@ -18,6 +18,7 @@ const smallCommonTextStyle = TextStyle(fontSize: 12, color: Colors.black87);
 const smallGrayTextStyle = TextStyle(fontSize: 12, color: Colors.grey);
 const common14TextStyle = TextStyle(fontSize: 14, color: Colors.black87);
 const common13TextStyle = TextStyle(fontSize: 13, color: Colors.black87);
+const common10TextStyle = TextStyle(fontSize: 10, color: Colors.black87);
 const bold20TextStyle = TextStyle(fontSize: 20, color: Colors.black87, fontWeight: FontWeight.bold);
 const bold18TextStyle = TextStyle(fontSize: 18, color: Colors.black87, fontWeight: FontWeight.bold);
 const w500_18TextStyle = TextStyle(fontSize: 18, color: Colors.black87, fontWeight: FontWeight.w500);

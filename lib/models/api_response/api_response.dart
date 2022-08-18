@@ -14,10 +14,14 @@ class ApiResponse<T> {
     if (code != null) {
       apiResponseEntity.code = code;
     }
-    final String? message = json['message'];
-    if (message != null) {
-      apiResponseEntity.message = message;
+    String message = '';
+    if (json['message'] != null) {
+      message = json['message'];
+    }  else if (json['msg'] != null) {
+      message = json['msg'];
     }
+    apiResponseEntity.message = message;
+
     T? data = json['data'];
 
     if (data != null) {

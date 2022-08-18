@@ -2,7 +2,10 @@
 import 'dart:collection';
 
 import 'package:get/get.dart';
+import 'package:music_box/common/common_url.dart';
+import 'package:music_box/models/kw_clissify.dart';
 import 'package:music_box/models/kw_entity.dart';
+import 'package:music_box/models/kw_music_set.dart';
 import 'package:music_box/models/lyric.dart';
 import 'package:music_box/net/request_client.dart';
 import 'package:music_box/utils/common_utils.dart';
@@ -41,8 +44,7 @@ class KwService extends GetxService{
     // var url = 'http://tm.tempmusic.tk/url/kw/$id/128k';
     // return kuWoRequestClient.get<String>(url, queryParameters: {'_' : CommonUtils.getNowTime()});
 
-    var url = 'http://www.kuwo.cn/api/v1/www/music/playUrl';
-    return kuWoRequestClient.get<dynamic>(url, queryParameters: {'mid':id, 'type' : 'music', 'httpsStatus': 1}, headers: userAgent);
+    return kuWoRequestClient.get<dynamic>(CommonUrl.kw_player, queryParameters: {'mid':id, 'type' : 'music', 'httpsStatus': 1}, headers: userAgent);
   }
 
   /// 缩略图
@@ -55,7 +57,7 @@ class KwService extends GetxService{
       'rid': id,
       '_': CommonUtils.getNowTime(),
     };
-    return kuWoRequestClient.get<String>('http://artistpicserver.kuwo.cn/pic.web', queryParameters: params);
+    return kuWoRequestClient.get<String>(CommonUrl.kw_thumbnail, queryParameters: params);
   }
 
   /// 获取歌词
@@ -65,6 +67,42 @@ class KwService extends GetxService{
       'musicId' : id,
       '_' : CommonUtils.getNowTime()
     };
-    return kuWoRequestClient.get<LyricResponse>('http://m.kuwo.cn/newh5/singles/songinfoandlrc', queryParameters: params);
+    return kuWoRequestClient.get<LyricResponse>(CommonUrl.kw_lrc, queryParameters: params);
+  }
+
+  /// 类别
+  Future getClassify() async {
+    /// http://wapi.kuwo.cn/api/pc/classify/playlist/getTagList?cmd=rcm_keyword_playlist&user=0&prod=kwplayer_pc_9.0.5.0&vipver=9.0.5.0&source=kwplayer_pc_9.0.5.0&loginUid=0&loginSid=0&appUid=76039576&_=1660543293172
+    var params = {
+      'cmd': 'rcm_keyword_playlist',
+      'user': 0,
+      'prod': 'kwplayer_pc_9.0.5.0',
+      'vipver': '9.0.5.0',
+      'source': 'kwplayer_pc_9.0.5.0',
+      'source': 'kwplayer_pc_9.0.5.0',
+      'loginUid': 0,
+      'loginSid': 0,
+      'appUid': 76039576,
+      '_' : CommonUtils.getNowTime()
+    };
+    List<dynamic> list = await kuWoRequestClient.get<List<dynamic>>(CommonUrl.kw_new_classify, queryParameters: params) ?? [];
+    return list.map((e) => KwClassify.fromMap(e)).toList();
+  }
+
+  /// 最热歌单列表
+  Future getMusicSet(bool isNew) async {
+    /// http://wapi.kuwo.cn/api/pc/classify/playlist/getRcmPlayList?loginUid=0&loginSid=0&appUid=76039576&&pn=1&rn=36&order=hot&_=1660543446163
+    var params = {
+      'loginUid': 0,
+      'loginSid': 0,
+      'appUid': 76039576,
+      'pn': 1,
+      'rn': 36,
+      'order': isNew ? 'new' : 'hot',
+      '_' : CommonUtils.getNowTime()
+    };
+    dynamic result = await kuWoRequestClient.get<dynamic>(CommonUrl.kw_music_set, queryParameters: params);
+    KwMusicSet set = KwMusicSet.fromJson(result);
+    return set.data;
   }
 }
