@@ -44,19 +44,24 @@ class PlayerPage extends StatelessWidget {
   }
 
   Widget _buildBackground() {
-    return Stack(
-      children: [
-        ConstrainedBox(
-            child: Image.network(
-              _homeLogic.state.musicModel!.thumbnail,
-              fit: BoxFit.cover,
-            ),
-            constraints: const BoxConstraints.expand()),
+    return GetBuilder<HomeLogic>(
+      assignId: true,
+      builder: (logic) {
+        return Stack(
+          children: [
+            ConstrainedBox(
+                child: Image.network(
+                  _homeLogic.state.musicModel!.thumbnail,
+                  fit: BoxFit.cover,
+                ),
+                constraints: const BoxConstraints.expand()),
 
-        Container(
-          color: AppColors.color_4C000000,
-        )
-      ],
+            Container(
+              color: AppColors.color_4C000000,
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -207,7 +212,8 @@ class PlayerPage extends StatelessWidget {
                   onTap: () {
                     if (_homeLogic.ctrl.status == AnimationStatus.completed) {
                       _homeLogic.ctrl.reverse();
-                    } else if (_homeLogic.ctrl.status == AnimationStatus.dismissed) {
+                    } else
+                    if (_homeLogic.ctrl.status == AnimationStatus.dismissed) {
                       _homeLogic.ctrl.forward();
                     }
                     AudioPlayerUtil.playerHandle(
@@ -233,6 +239,7 @@ class PlayerPage extends StatelessWidget {
     );
   }
 
+  /// 进度条
   Widget _buildScrollBar() {
     return GetBuilder<HomeLogic>(builder: (logic) {
       return Row(
