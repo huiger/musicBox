@@ -10,6 +10,7 @@ import 'package:music_box/page/home/home_state.dart';
 import 'package:music_box/page/player/player_state.dart';
 import 'package:music_box/utils/app_colors.dart';
 import 'package:music_box/utils/audio_player.dart';
+import 'package:music_box/utils/common_text_style.dart';
 import 'package:music_box/widgets/full_width_track_shape.dart';
 
 import 'player_logic.dart';
@@ -17,17 +18,13 @@ import 'player_logic.dart';
 class PlayerPage extends StatelessWidget {
   late final PlayerLogic _logic;
   late final PlayerState _state;
-  late final HomeLogic _homeLogic;
   late final BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
     _context = context;
     _logic = Get.put(PlayerLogic());
-    _state = Get
-        .find<PlayerLogic>()
-        .state;
-    _homeLogic = Get.find<HomeLogic>();
+    _state = Get.find<PlayerLogic>().state;
 
     return Stack(
       children: [
@@ -51,11 +48,10 @@ class PlayerPage extends StatelessWidget {
           children: [
             ConstrainedBox(
                 child: Image.network(
-                  _homeLogic.state.musicModel!.thumbnail,
+                  _logic.homeLogic.state.musicModel!.thumbnail,
                   fit: BoxFit.cover,
                 ),
                 constraints: const BoxConstraints.expand()),
-
             Container(
               color: AppColors.color_4C000000,
             )
@@ -84,10 +80,10 @@ class PlayerPage extends StatelessWidget {
                 Center(
                   child: Column(
                     children: [
-                      Text("${_homeLogic.state.musicModel?.name}",
+                      Text("${_logic.homeLogic.state.musicModel?.name}",
                           style: const TextStyle(
                               color: Colors.white, fontSize: 14)),
-                      Text("${_homeLogic.state.musicModel?.author}",
+                      Text("${_logic.homeLogic.state.musicModel?.author}",
                           style: const TextStyle(
                               color: Colors.white, fontSize: 12)),
                     ],
@@ -123,8 +119,7 @@ class PlayerPage extends StatelessWidget {
                           if (_logic.scrollController.offset != 0) {
                             // 只有列表滚动到顶部时才触发下拉动画效果
                             print(
-                                "onPointerMove:${_logic.scrollController
-                                    .offset}");
+                                "onPointerMove:${_logic.scrollController.offset}");
                             return;
                           }
                           double distance =
@@ -154,30 +149,43 @@ class PlayerPage extends StatelessWidget {
                           _state.pointerDy = event.position.dy +
                               _logic.scrollController.offset;
                         },
-                        child: _state.lrcVisible ? ListView(
-                          controller: _logic.scrollController,
-                          physics: currentHeight != _state.totalHeight
-                              ? const NeverScrollableScrollPhysics()
-                              : const ClampingScrollPhysics(),
-                          children: [
-                            Text(
-                                '测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试'),
-                            Text(
-                                '测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试'),
-                            Text(
-                                '测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试'),
-                            Text(
-                                '测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试'),
-                            Text(
-                                '测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试\n测试'),
-                          ],
-                        ) : Container(color: Colors.transparent,)));
+                        child: _state.lrcVisible
+                            ? ListView(
+                                controller: _logic.scrollController,
+                                physics: currentHeight != _state.totalHeight
+                                    ? const NeverScrollableScrollPhysics()
+                                    : const ClampingScrollPhysics(),
+                                children: _buildItem(),
+                              )
+                            : Container(
+                                color: Colors.transparent,
+                              )));
               },
             ),
           );
         },
       ),
     );
+  }
+
+  /// 歌词
+  List<Widget> _buildItem() {
+    List<Widget> items = [];
+    items.add(const SizedBox(height: 15,));
+    if (_state.lrcList.isEmpty) {
+      items.add(Container(
+        color: Colors.transparent,
+      ));
+    } else {
+      for (var value in _state.lrcList) {
+        items.add(Container(
+            margin: const EdgeInsets.only(top: 5, bottom: 5),
+            child: Center(
+                child: Text(value.lyric, style: common14WhiteTextStyle))));
+      }
+      items.add(const SizedBox(height: 15,));
+    }
+    return items;
   }
 
   /// 底部
@@ -198,29 +206,34 @@ class PlayerPage extends StatelessWidget {
                   size: 25,
                 ),
                 onTap: () {
-                  _homeLogic.prev();
+                  _logic.homeLogic.prev();
                 },
               ),
-              Expanded(child: Center(
-                child: InkWell(
-                  child: AnimatedIcon(
-                    icon: AnimatedIcons.pause_play,
-                    progress: _homeLogic.ctrl,
-                    color: Colors.white,
-                    size: 40,
+              Expanded(
+                child: Center(
+                  child: InkWell(
+                    child: AnimatedIcon(
+                      icon: AnimatedIcons.pause_play,
+                      progress: _logic.homeLogic.ctrl,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    onTap: () {
+                      if (_logic.homeLogic.ctrl.status ==
+                          AnimationStatus.completed) {
+                        _logic.homeLogic.ctrl.reverse();
+                      } else if (_logic.homeLogic.ctrl.status ==
+                          AnimationStatus.dismissed) {
+                        _logic.homeLogic.ctrl.forward();
+                      }
+                      AudioPlayerUtil.playerHandle(
+                          model: _logic.homeLogic.state.musicModel ??
+                              MusicModel());
+                    },
                   ),
-                  onTap: () {
-                    if (_homeLogic.ctrl.status == AnimationStatus.completed) {
-                      _homeLogic.ctrl.reverse();
-                    } else
-                    if (_homeLogic.ctrl.status == AnimationStatus.dismissed) {
-                      _homeLogic.ctrl.forward();
-                    }
-                    AudioPlayerUtil.playerHandle(
-                        model: _homeLogic.state.musicModel ?? MusicModel());
-                  },
                 ),
-              ), flex: 1,),
+                flex: 1,
+              ),
               InkWell(
                 child: const Icon(
                   IconFonts.player_next,
@@ -228,7 +241,7 @@ class PlayerPage extends StatelessWidget {
                   size: 25,
                 ),
                 onTap: () {
-                  _homeLogic.next();
+                  _logic.homeLogic.next();
                 },
               ),
               const SizedBox(width: 70),
@@ -244,18 +257,26 @@ class PlayerPage extends StatelessWidget {
     return GetBuilder<HomeLogic>(builder: (logic) {
       return Row(
         children: [
-          const SizedBox(width: 10,),
-          Text(_homeLogic.state.playerCurrentTime,
+          const SizedBox(
+            width: 10,
+          ),
+          Text(_logic.homeLogic.state.playerCurrentTime,
               style: const TextStyle(color: Colors.white, fontSize: 12)),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 10,
+          ),
           Expanded(
               child: Container(
                   padding: const EdgeInsets.only(left: 5, right: 5),
                   child: _buildSlider())),
-          const SizedBox(width: 10,),
-          Text(_homeLogic.state.playerMaxTime,
+          const SizedBox(
+            width: 10,
+          ),
+          Text(_logic.homeLogic.state.playerMaxTime,
               style: const TextStyle(color: Colors.white, fontSize: 12)),
-          const SizedBox(width: 10,),
+          const SizedBox(
+            width: 10,
+          ),
         ],
       );
     });
@@ -264,21 +285,22 @@ class PlayerPage extends StatelessWidget {
   /// 播放进度
   Widget _buildSlider() {
     return ValueListenableBuilder<double>(
-      valueListenable: _homeLogic.progressNotifier,
+      valueListenable: _logic.homeLogic.progressNotifier,
       builder: (context, value, child) {
         return SliderTheme(
           data: SliderTheme.of(_context).copyWith(
 
-            /// 滑块大小
+              /// 滑块大小
               thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 5),
               trackShape: FullWidthTrackShape(),
               trackHeight: 4),
           child: Slider(
             value: value,
             min: 0.0,
-            max: _homeLogic.state.musicModel?.duration.floorToDouble() ?? 100.0,
+            max: _logic.homeLogic.state.musicModel?.duration.floorToDouble() ??
+                100.0,
             inactiveColor: AppColors.color_cccccc,
-            onChanged: (val) => _homeLogic.moveSeekbar(val),
+            onChanged: (val) => _logic.homeLogic.moveSeekbar(val),
           ),
         );
       },

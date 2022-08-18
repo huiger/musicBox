@@ -69,7 +69,6 @@ class KwPage extends StatelessWidget {
     model.id = music.id ?? "";
     model.name = music.name ?? "";
     model.author = music.artist ?? "";
-    model.thumbnail = CommonUtils.getKwPlayerAlbum(music.id ?? "");
     model.duration = int.tryParse(music.songDuration ?? '0') ?? 0;
     return model;
   }

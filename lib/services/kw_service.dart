@@ -3,6 +3,7 @@ import 'dart:collection';
 
 import 'package:get/get.dart';
 import 'package:music_box/models/kw_entity.dart';
+import 'package:music_box/models/lyric.dart';
 import 'package:music_box/net/request_client.dart';
 import 'package:music_box/utils/common_utils.dart';
 
@@ -31,6 +32,7 @@ class KwService extends GetxService{
     return await kuWoRequestClient.get<KwEntity>('http://kbangserver.kuwo.cn/ksong.s', queryParameters: params);
   }
 
+  /// 播放地址
   Future getPlayerUrl(String id) {
     /// http://tm.tempmusic.tk/url/kw/217710574/128k?_=1660551378368
     /// http://www.kuwo.cn/api/v1/www/music/playUrl?mid=${songmid}&type=music&httpsStatus=1
@@ -39,10 +41,11 @@ class KwService extends GetxService{
     // var url = 'http://tm.tempmusic.tk/url/kw/$id/128k';
     // return kuWoRequestClient.get<String>(url, queryParameters: {'_' : CommonUtils.getNowTime()});
 
-    var url = 'http://www.kuwo.cn/api/v1/www/music/playUrl?mid=$id&type=music&httpsStatus=1';
-    return kuWoRequestClient.get<dynamic>(url, queryParameters: {'type' : 'music', 'httpsStatus': 1}, headers: userAgent);
+    var url = 'http://www.kuwo.cn/api/v1/www/music/playUrl';
+    return kuWoRequestClient.get<dynamic>(url, queryParameters: {'mid':id, 'type' : 'music', 'httpsStatus': 1}, headers: userAgent);
   }
 
+  /// 缩略图
   Future getThumbnailUrl(String id) {
     var params = {
       'corp': 'kuwo',
@@ -53,5 +56,15 @@ class KwService extends GetxService{
       '_': CommonUtils.getNowTime(),
     };
     return kuWoRequestClient.get<String>('http://artistpicserver.kuwo.cn/pic.web', queryParameters: params);
+  }
+
+  /// 获取歌词
+  Future getLrc(String id) {
+    /// http://m.kuwo.cn/newh5/singles/songinfoandlrc?musicId=217710574&_=1660551378370
+    var params = {
+      'musicId' : id,
+      '_' : CommonUtils.getNowTime()
+    };
+    return kuWoRequestClient.get<LyricResponse>('http://m.kuwo.cn/newh5/singles/songinfoandlrc', queryParameters: params);
   }
 }

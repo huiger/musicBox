@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:music_box/models/lyric.dart';
 
 class PlayerState {
 
@@ -11,6 +11,8 @@ class PlayerState {
 
   /// 歌词显示状态
   bool lrcVisible = true;
+
+  List<Lyric> lrcList = [];
 
   PlayerState() {
     totalHeight = Get.height;

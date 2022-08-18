@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:music_box/models/api_response/api_response.dart';
 import 'package:music_box/models/kw_entity.dart';
+import 'package:music_box/models/lyric.dart';
 import 'package:music_box/models/raw_data.dart';
 import 'package:music_box/net/impl/kuwo_request.dart';
 import 'package:music_box/net/request_config.dart';
@@ -133,6 +134,8 @@ class RequestClient {
         return raw as T;
       } else if(T.toString() == (KwEntity).toString()) {
         return KwEntity.fromJson(jsonDecode(response.data)) as T;
+      } else if(T.toString() == (LyricResponse).toString()) {
+        return LyricResponse.fromJson(jsonDecode(response.data)) as T;
       } else if(T.toString() == (String).toString()) {
         return response.data;
       } else {
