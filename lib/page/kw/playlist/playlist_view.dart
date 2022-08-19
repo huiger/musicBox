@@ -7,6 +7,7 @@ import 'package:music_box/utils/common_text_style.dart';
 
 import 'playlist_logic.dart';
 
+/// 歌单
 class PlaylistPage extends StatelessWidget {
   bool isNew;
 
