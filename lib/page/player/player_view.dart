@@ -53,7 +53,7 @@ class PlayerPage extends StatelessWidget {
                 ),
                 constraints: const BoxConstraints.expand()),
             Container(
-              color: AppColors.color_4C000000,
+              color: AppColors.color_30000000,
             )
           ],
         );
@@ -193,7 +193,7 @@ class PlayerPage extends StatelessWidget {
   Widget _buildBottom() {
     return Container(
       height: 100,
-      color: AppColors.color_4C000000,
+      color: AppColors.color_30000000,
       child: Column(
         children: [
           _buildScrollBar(),

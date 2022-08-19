@@ -6,6 +6,7 @@ import 'package:music_box/common/common_url.dart';
 import 'package:music_box/models/kw_clissify.dart';
 import 'package:music_box/models/kw_entity.dart';
 import 'package:music_box/models/kw_music_set.dart';
+import 'package:music_box/models/kw_music_set_detail.dart';
 import 'package:music_box/models/lyric.dart';
 import 'package:music_box/net/request_client.dart';
 import 'package:music_box/utils/common_utils.dart';
@@ -104,5 +105,23 @@ class KwService extends GetxService{
     dynamic result = await kuWoRequestClient.get<dynamic>(CommonUrl.kw_music_set, queryParameters: params);
     KwMusicSet set = KwMusicSet.fromJson(result);
     return set.data;
+  }
+
+  /// 歌单详情列表
+  Future getMusicSetDetail(String id) {
+    var params = {
+      'op': 'getlistinfo',
+      'pid': id,
+      'pn': 0,
+      'rn': 10000,
+      'encode': 'utf8',
+      'keyset': 'pl2012',
+      'identity': 'kuwo',
+      'pcmp4': 1,
+      'vipver': 'MUSIC_9.0.5.0_W1',
+      'newver': 1,
+      '_': CommonUtils.getNowTime()
+    };
+    return kuWoRequestClient.get<KwMusicSetDetail>(CommonUrl.kw_music_set_list, queryParameters: params);
   }
 }

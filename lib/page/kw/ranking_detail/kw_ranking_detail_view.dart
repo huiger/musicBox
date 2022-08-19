@@ -8,7 +8,7 @@ import 'package:music_box/utils/app_colors.dart';
 
 import 'kw_ranking_detail_logic.dart';
 
-/// 酷我
+/// 排行榜详情列表
 class KwRankingDetailPage extends StatelessWidget {
 
   late KwRankingDetailLogic logic;
@@ -34,7 +34,7 @@ class KwRankingDetailPage extends StatelessWidget {
   Widget _buildItem(int index, Musiclist? music) {
     return InkWell(
       onTap: (){
-        logic.playerMusic(getMusicModel(index, music!));
+        logic.homeLogic.playerMusic(getMusicModel(index, music!));
       },
       child: Container(
         padding: const EdgeInsets.only(top: 2, bottom: 2, left: 10),

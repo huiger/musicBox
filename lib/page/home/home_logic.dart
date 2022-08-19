@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_box/models/music_model.dart';
+import 'package:music_box/services/kw_service.dart';
+import 'package:music_box/services/player_service.dart';
 import 'package:music_box/utils/audio_player.dart';
 import 'package:music_box/utils/common_utils.dart';
 
@@ -9,6 +11,8 @@ import 'home_state.dart';
 
 class HomeLogic extends GetxController with GetTickerProviderStateMixin {
   final HomeState state = HomeState();
+  final KwService service = Get.find();
+  final PlayerService playerService = Get.find();
 
   late TabController tabController;
   late PageController pageController;
@@ -33,6 +37,17 @@ class HomeLogic extends GetxController with GetTickerProviderStateMixin {
       state.playerCurrentTime = CommonUtils.getPlayerTimes(p0);
       update();
     },);
+  }
+
+  /// 播放
+  void playerMusic(MusicModel model) async {
+    dynamic result = await service.getPlayerUrl(model.id);
+    model.url = result['url'];
+    model.thumbnail = await service.getThumbnailUrl(model.id);
+
+    // AudioPlayerUtil.playerHandle(model: model);
+    AudioPlayerUtil.listPlayerHandle(musicModels: playerService.addMusic(model), musicModel: model);
+    updatePlayer(model);
   }
 
   /// 播放、暂停

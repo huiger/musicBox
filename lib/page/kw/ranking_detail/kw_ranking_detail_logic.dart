@@ -12,24 +12,11 @@ class KwRankingDetailLogic extends GetxController {
   final KwRankingDetailState state = KwRankingDetailState();
   final KwService service = Get.find();
   final HomeLogic homeLogic = Get.find();
-  final PlayerService playerService = Get.find();
 
   @override
   void onInit() async {
     super.onInit();
     state.entity = await service.getContent();
     update();
-  }
-
-  void playerMusic(MusicModel model) async {
-    dynamic result = await service.getPlayerUrl(model.id);
-    model.url = result['url'];
-    model.thumbnail = await service.getThumbnailUrl(model.id);
-
-    debugPrint("playerUrl = ${model.url}");
-
-    // AudioPlayerUtil.playerHandle(model: model);
-    AudioPlayerUtil.listPlayerHandle(musicModels: playerService.addMusic(model), musicModel: model);
-    homeLogic.updatePlayer(model);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:music_box/page/kw/playlist/playlist_view.dart';
+import 'package:music_box/page/kw/music_set/playlist_view.dart';
 import 'package:music_box/widgets/keep_alive_wrapper.dart';
 
 class KwHomeState {
