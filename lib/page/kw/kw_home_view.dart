@@ -42,11 +42,10 @@ class KwhomePage extends StatelessWidget {
 
   Widget _buildContent() {
     return Expanded(
-      child: PageView.builder(
+      child: PageView(
         controller: _logic.pageController,
         onPageChanged: (value) => _logic.tabController.animateTo(value),
-        itemCount: _logic.state.tabs.length,
-        itemBuilder: (context, index) => PlaylistPage(index == 0),
+        children: _state.pages,
     ));
   }
 }

@@ -29,7 +29,7 @@ class PlayerLogic extends GetxController {
   void getLrc() async {
     LyricResponse result = await service.getLrc(homeLogic.state.musicModel!.id);
     state.lrcList = result.data?.lrclList ?? [];
-    update();
+    update(['lrc']);
   }
 
   void changeLrcVisible(){

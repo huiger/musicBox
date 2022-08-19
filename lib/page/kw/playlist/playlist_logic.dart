@@ -12,12 +12,10 @@ class PlaylistLogic extends GetxController {
   void onInit() {
 
 
-    getContent();
-
   }
 
-  void getContent() async {
-    // List<dynamic> result = await _service.getClassify();
+  void getContent(bool isNew) async {
+    state.isNew = isNew;
     state.list = await _service.getMusicSet(state.isNew);
     update();
   }

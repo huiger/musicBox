@@ -17,11 +17,12 @@ class PlaylistPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _logic = Get.put(PlaylistLogic());
-    _state = Get.find<PlaylistLogic>().state;
-    _state.isNew = isNew;
+    _logic = Get.put(PlaylistLogic(), tag: '$isNew');
+    _state = Get.find<PlaylistLogic>(tag: '$isNew').state;
+    _logic.getContent(isNew);
 
     return GetBuilder<PlaylistLogic>(
+      tag: '$isNew',
       builder: (controller) => GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,

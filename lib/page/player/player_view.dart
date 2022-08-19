@@ -101,6 +101,7 @@ class PlayerPage extends StatelessWidget {
   Widget _buildContent() {
     return Expanded(
       child: GetBuilder<PlayerLogic>(
+        id: 'lrc',
         assignId: true,
         builder: (logic) {
           return GestureDetector(
