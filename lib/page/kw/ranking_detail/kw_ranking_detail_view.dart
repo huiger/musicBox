@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_box/models/kw_entity.dart';
 import 'package:music_box/models/music_model.dart';
-import 'package:music_box/page/kw/kw_state.dart';
+import 'package:music_box/page/kw/ranking_detail/kw_ranking_detail_state.dart';
 import 'package:music_box/utils/app_colors.dart';
-import 'package:music_box/utils/common_utils.dart';
 
-import 'kw_logic.dart';
+import 'kw_ranking_detail_logic.dart';
 
 /// 酷我
-class KwPage extends StatelessWidget {
+class KwRankingDetailPage extends StatelessWidget {
 
-  late KwLogic logic;
-  late KwState state;
+  late KwRankingDetailLogic logic;
+  late KwRankingDetailState state;
 
   @override
   Widget build(BuildContext context) {
-    logic = Get.put(KwLogic());
-    state = Get.find<KwLogic>().state;
+    logic = Get.put(KwRankingDetailLogic());
+    state = Get.find<KwRankingDetailLogic>().state;
 
-    return GetBuilder<KwLogic>(builder: (logic) {
+    return GetBuilder<KwRankingDetailLogic>(builder: (logic) {
       return state.entity == null
           ? Container()
           : ListView.separated(

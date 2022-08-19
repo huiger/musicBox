@@ -8,6 +8,9 @@ class CommonUrl {
   /// 歌单列表
   static const kw_music_set = 'http://wapi.kuwo.cn/api/pc/classify/playlist/getRcmPlayList';
 
+  /// 歌单详情
+  static const kw_music_set_list = 'http://nplserver.kuwo.cn/pl.svc';
+
   /// 歌词
   static const kw_lrc = 'http://m.kuwo.cn/newh5/singles/songinfoandlrc';
 

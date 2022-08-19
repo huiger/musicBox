@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_box/page/kw/kw_home_logic.dart';
-import 'package:music_box/page/kw/kw_home_state.dart';
-import 'package:music_box/page/kw/playlist/playlist_view.dart';
+import 'package:music_box/page/kw/home/kw_home_logic.dart';
+import 'package:music_box/page/kw/home/kw_home_state.dart';
 import 'package:music_box/utils/app_colors.dart';
 
 

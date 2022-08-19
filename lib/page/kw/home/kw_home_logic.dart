@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_box/page/kw/home/kw_home_state.dart';
 
-import 'kw_home_state.dart';
 
 class KwHomeLogic extends GetxController with GetTickerProviderStateMixin{
   final KwHomeState state = KwHomeState();
