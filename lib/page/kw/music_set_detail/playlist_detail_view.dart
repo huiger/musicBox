@@ -107,7 +107,7 @@ class PlaylistDetailPage extends StatelessWidget {
   Widget _buildItem(int index, Musiclist? music) {
     return InkWell(
       onTap: () {
-        _logic.homeLogic.playerMusic(getMusicModel(index, music!));
+        _logic.playMusic(index, music);
       },
       child: Column(
         children: [
@@ -150,12 +150,5 @@ class PlaylistDetailPage extends StatelessWidget {
     );
   }
 
-  MusicModel getMusicModel(int index, Musiclist music) {
-    var model = MusicModel();
-    model.id = music.id ?? "";
-    model.name = music.name ?? "";
-    model.author = music.artist ?? "";
-    model.duration = 0;
-    return model;
-  }
+
 }

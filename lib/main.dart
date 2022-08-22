@@ -29,8 +29,8 @@ void main() async {
 
 Future<void> initServices() async {
   await Get.putAsync(() async => KwService());//API
-  await Get.putAsync(() async => HomeLogic(), permanent: true);
   await Get.putAsync(() async => PlayerService());
+  await Get.putAsync(() async => HomeLogic(), permanent: true);
 }
 
 class MyApp extends StatelessWidget {
