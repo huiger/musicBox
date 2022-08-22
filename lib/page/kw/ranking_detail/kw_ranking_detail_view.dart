@@ -34,7 +34,7 @@ class KwRankingDetailPage extends StatelessWidget {
   Widget _buildItem(int index, Musiclist? music) {
     return InkWell(
       onTap: (){
-        logic.homeLogic.playerMusic(getMusicModel(index, music!));
+        logic.playerLogic.playerMusic(getMusicModel(index, music!));
       },
       child: Container(
         padding: const EdgeInsets.only(top: 2, bottom: 2, left: 10),

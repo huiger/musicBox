@@ -1,21 +1,7 @@
-import 'package:get/get.dart';
-import 'package:music_box/models/lyric.dart';
+import 'package:music_box/models/music_model.dart';
 
 class PlayerState {
-
-  /// 列表弹起的正常高度
-  double totalHeight = 0;
-
-  /// 记录手指按下的位置
-  double pointerDy = 0;
-
-  /// 歌词显示状态
-  bool lrcVisible = true;
-
-  List<Lyric> lrcList = [];
-
-  PlayerState() {
-    totalHeight = Get.height;
-
-  }
+  MusicModel? musicModel;
+  String playerCurrentTime = '00:00';
+  String playerMaxTime = '00:00';
 }

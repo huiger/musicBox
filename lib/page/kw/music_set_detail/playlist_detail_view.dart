@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:music_box/models/kw_music_set_detail.dart';
 import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/kw/music_set_detail/playlist_detail_state.dart';
+import 'package:music_box/page/player/player_view.dart';
 import 'package:music_box/utils/app_colors.dart';
 import 'package:music_box/utils/common_text_style.dart';
 
@@ -24,8 +25,15 @@ class PlaylistDetailPage extends StatelessWidget {
         if (_state.detail == null) {
           return Container();
         }
-        return CustomScrollView(
-          slivers: [_buildSliverAppBar(), _buildList()],
+        return Column(
+          children: [
+            Expanded(
+              child: CustomScrollView(
+                slivers: [_buildSliverAppBar(), _buildList()],
+              ),
+            ),
+            PlayerWidget()
+          ],
         );
       },
     );

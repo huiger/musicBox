@@ -16,9 +16,4 @@ class HomeState {
     PlatformBean('qq', page: QQPage())
   ];
 
-  MusicModel? musicModel;
-
-  String playerCurrentTime = '00:00';
-  String playerMaxTime = '00:00';
-
 }

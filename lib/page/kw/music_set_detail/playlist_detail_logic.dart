@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:music_box/models/kw_music_set_detail.dart';
 import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/home/home_logic.dart';
+import 'package:music_box/page/player/player_logic.dart';
 import 'package:music_box/services/kw_service.dart';
 
 import 'playlist_detail_state.dart';
@@ -10,7 +11,7 @@ import 'playlist_detail_state.dart';
 class PlaylistDetailLogic extends GetxController {
   final PlaylistDetailState state = PlaylistDetailState();
   final KwService _service = Get.find();
-  final HomeLogic homeLogic = Get.find();
+  final PlayerLogic playerLogic = Get.find();
 
 
   @override
@@ -30,7 +31,7 @@ class PlaylistDetailLogic extends GetxController {
       EasyLoading.showError('播放失败，请更换重试！');
       return;
     }
-    homeLogic.playerMusic(getMusicModel(index, music));
+    playerLogic.playerMusic(getMusicModel(index, music));
   }
 
   MusicModel getMusicModel(int index, Musiclist music) {
