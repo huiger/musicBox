@@ -24,6 +24,7 @@ class PlaylistPage extends StatelessWidget {
     return GetBuilder<PlaylistLogic>(
       tag: '$isNew',
       builder: (controller) => GridView.builder(
+        padding: EdgeInsets.zero,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           mainAxisSpacing: 10,

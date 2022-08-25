@@ -39,13 +39,20 @@ class PlayerLogic extends GetxController with GetTickerProviderStateMixin {
 
   /// 播放
   void playerMusic(MusicModel model) async {
-    dynamic result = await service.getPlayerUrl(model.id);
-    model.url = result['url'];
-    model.thumbnail = await service.getThumbnailUrl(model.id);
 
     AudioPlayerUtil.listPlayerHandle(
         musicModels: playerService.addMusic(model), musicModel: model);
     updatePlayer(model);
+  }
+
+  /// 播放列表
+  void playerMusicList(List<MusicModel> list) async {
+    if(list.isEmpty) return;
+    var currentMusic = list[0];
+
+    playerService.musicList = list;
+    AudioPlayerUtil.listPlayerHandle(musicModels: list, musicModel: currentMusic);
+    updatePlayer(currentMusic);
   }
 
   /// 播放、暂停

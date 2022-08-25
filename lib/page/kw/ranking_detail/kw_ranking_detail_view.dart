@@ -5,6 +5,7 @@ import 'package:music_box/models/kw_entity.dart';
 import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/kw/ranking_detail/kw_ranking_detail_state.dart';
 import 'package:music_box/utils/app_colors.dart';
+import 'package:music_box/utils/common_text_style.dart';
 
 import 'kw_ranking_detail_logic.dart';
 
@@ -41,7 +42,7 @@ class KwRankingDetailPage extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            Text('${index + 1}', style: const TextStyle(color: AppColors.color_666666, fontSize: 16)),
+            Text('${index + 1}', style: common16C666TextStyle),
             const SizedBox(
               width: 10,
             ),
@@ -49,9 +50,9 @@ class KwRankingDetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(music?.name ?? "", style: const TextStyle(color: AppColors.color_333333, fontSize: 14)),
+                  Text(music?.name ?? "", style: common14C333TextStyle),
                   const SizedBox(height: 5,),
-                  Text('${music?.artist} - ${music?.album}', style: const TextStyle(color: AppColors.color_999999, fontSize: 10)),
+                  Text('${music?.artist} - ${music?.album}', style: common10C999TextStyle),
                 ],
               ),
             )

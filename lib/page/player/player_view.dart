@@ -6,6 +6,7 @@ import 'package:music_box/page/player/player_state.dart';
 import 'package:music_box/page/player_detail/player_detail_view.dart';
 import 'package:music_box/utils/app_colors.dart';
 import 'package:music_box/utils/audio_player.dart';
+import 'package:music_box/utils/common_text_style.dart';
 import 'package:music_box/widgets/bottom_sheet.dart';
 import 'package:music_box/widgets/full_width_track_shape.dart';
 
@@ -45,6 +46,7 @@ class PlayerWidget extends StatelessWidget {
                           "http://img4.kuwo.cn/star/albumcover/120/72/14/592971727.jpg",
                       width: 50,
                       height: 50,
+                      errorBuilder: (context, error, stackTrace) => const FlutterLogo(),
                     )),
                 const SizedBox(
                   width: 10,
@@ -58,7 +60,7 @@ class PlayerWidget extends StatelessWidget {
                         Text(
                           '${_state.musicModel?.name ?? ''} - ${_state
                               .musicModel?.author ?? ''}',
-                          style: const TextStyle(fontSize: 14),
+                          style: common14TextStyle,
                           maxLines: 1,
                         ),
                         Expanded(
@@ -76,8 +78,7 @@ class PlayerWidget extends StatelessWidget {
                             Text(
                               '${_logic.state.playerCurrentTime} / ${_logic
                                   .state.playerMaxTime}',
-                              style: const TextStyle(
-                                  color: AppColors.color_cccccc, fontSize: 10),
+                              style: common10CCCTextStyle,
                             )
                           ],
                         ),

@@ -79,11 +79,9 @@ class PlayerDetailPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text("${_logic.playerLogic.state.musicModel?.name}",
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14)),
+                          style: common14WhiteTextStyle),
                       Text("${_logic.playerLogic.state.musicModel?.author}",
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 12)),
+                          style: common12WhiteTextStyle),
                     ],
                   ),
                 )
@@ -260,7 +258,7 @@ class PlayerDetailPage extends StatelessWidget {
             width: 10,
           ),
           Text(_logic.playerLogic.state.playerCurrentTime,
-              style: const TextStyle(color: Colors.white, fontSize: 12)),
+              style: common12WhiteTextStyle),
           const SizedBox(
             width: 10,
           ),
@@ -272,7 +270,7 @@ class PlayerDetailPage extends StatelessWidget {
             width: 10,
           ),
           Text(_logic.playerLogic.state.playerMaxTime,
-              style: const TextStyle(color: Colors.white, fontSize: 12)),
+              style: common12WhiteTextStyle),
           const SizedBox(
             width: 10,
           ),

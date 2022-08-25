@@ -1,5 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:get/get.dart';
 import 'package:music_box/models/music_model.dart';
+import 'package:music_box/services/kw_service.dart';
 
 class AudioPlayerUtil{
 
@@ -163,6 +165,7 @@ class AudioPlayerUtil{
     _positionPool = [];
     _showPool = [];
     _audioPlayer = AudioPlayer();
+    _kwService = Get.find();
     // 状态监听
     _audioPlayer.onPlayerStateChanged.listen((PlayerState playerState) {
       switch(playerState){
@@ -217,6 +220,7 @@ class AudioPlayerUtil{
   late List<ListenerPositionModel> _positionPool;
   // show监听
   late List<ListenerShowModel> _showPool;
+  late KwService _kwService;
   bool _stopPosition = false; // 暂停进度监听，用于seekTo跳转播放缓冲时，Slider停止
   int _secondPosition = 0;
   Duration _position = const Duration(seconds: 0);
@@ -226,6 +230,9 @@ class AudioPlayerUtil{
 
   // 播放新音频
   void _playNewAudio(MusicModel model) async{
+    if (model.url.isEmpty) {
+      model = await _getPlayerUrl(model);
+    }
     await _audioPlayer.play(model.url);
     _musicModel = model;
     _showTipView(true);
@@ -262,6 +269,14 @@ class AudioPlayerUtil{
     _audioPlayer.release();
     _secondPosition = 0;
     _state = AudioPlayerState.stopped;
+  }
+
+  /// 获取播放地址
+  Future _getPlayerUrl(MusicModel model) async {
+    dynamic result = await _kwService.getPlayerUrl(model.id);
+    model.url = result['url'];
+    model.thumbnail = await _kwService.getThumbnailUrl(model.id);
+    return model;
   }
 }
 

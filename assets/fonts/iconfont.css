@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1660719799621') format('truetype');
+  src: url('iconfont.ttf?t=1661159821532') format('truetype');
 }
 
 .iconfont {
@@ -29,5 +29,17 @@
 
 .icon-player-prev:before {
   content: "\e6ba";
+}
+
+.icon-collect:before {
+  content: "\e602";
+}
+
+.icon-play-volume:before {
+  content: "\e601";
+}
+
+.icon-player-all:before {
+  content: "\e624";
 }
 

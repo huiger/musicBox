@@ -15,28 +15,24 @@ class HomePage extends StatelessWidget {
     _logic = Get.put(HomeLogic());
     _state = Get.find<HomeLogic>().state;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: SafeArea(
-        child: GetBuilder<HomeLogic>(
-          assignId: true,
-          builder: (logic) {
-            return Column(
-              children: [
-                _buildAppBar(),
-                _buildPageView(),
-                PlayerWidget()
-              ],
-            );
-          },
-        ),
-      ),
+    return GetBuilder<HomeLogic>(
+      assignId: true,
+      builder: (logic) {
+        return Column(
+          children: [
+            _buildAppBar(),
+            _buildPageView(),
+            PlayerWidget()
+          ],
+        );
+      },
     );
   }
 
   Widget _buildAppBar() {
     return Container(
       color: AppColors.color_theme,
+      padding: const EdgeInsets.only(top: 45),
       child: Column(
         children: [
           Row(
