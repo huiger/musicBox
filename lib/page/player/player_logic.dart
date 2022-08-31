@@ -9,9 +9,9 @@ import 'package:music_box/utils/common_utils.dart';
 import 'player_state.dart';
 
 class PlayerLogic extends GetxController with GetTickerProviderStateMixin {
-  PlayerState state = PlayerState();
-  final PlayerService playerService = Get.find();
+  final PlayerState state = PlayerState();
   final KwService service = Get.find();
+  final PlayerService playerService = Get.find();
 
   late AnimationController ctrl;
   late ValueNotifier<double> progressNotifier;
@@ -39,9 +39,7 @@ class PlayerLogic extends GetxController with GetTickerProviderStateMixin {
 
   /// 播放
   void playerMusic(MusicModel model) async {
-
-    AudioPlayerUtil.listPlayerHandle(
-        musicModels: playerService.addMusic(model), musicModel: model);
+    playerService.playerMusic(model);
     updatePlayer(model);
   }
 
@@ -82,6 +80,12 @@ class PlayerLogic extends GetxController with GetTickerProviderStateMixin {
   void next() {
     AudioPlayerUtil.nextMusic();
     state.musicModel = AudioPlayerUtil.musicModel;
+    update();
+  }
+
+  void playSuccess(MusicModel model){
+    state.musicModel = model;
+    state.playerMaxTime = CommonUtils.getPlayerTimes(model.duration);
     update();
   }
 }

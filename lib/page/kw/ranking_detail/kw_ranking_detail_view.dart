@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:music_box/models/kw_entity.dart';
 import 'package:music_box/models/music_model.dart';
 import 'package:music_box/page/kw/ranking_detail/kw_ranking_detail_state.dart';
-import 'package:music_box/utils/app_colors.dart';
 import 'package:music_box/utils/common_text_style.dart';
 
 import 'kw_ranking_detail_logic.dart';
@@ -35,7 +34,7 @@ class KwRankingDetailPage extends StatelessWidget {
   Widget _buildItem(int index, Musiclist? music) {
     return InkWell(
       onTap: (){
-        logic.playerLogic.playerMusic(getMusicModel(index, music!));
+        logic.playerService.playerMusic(getMusicModel(index, music!));
       },
       child: Container(
         padding: const EdgeInsets.only(top: 2, bottom: 2, left: 10),

@@ -21,7 +21,7 @@ class PlayerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _context = context;
-    _logic = Get.find();
+    _logic = Get.put(PlayerLogic(), permanent: true);
     _state = Get
         .find<PlayerLogic>()
         .state;
@@ -46,7 +46,7 @@ class PlayerWidget extends StatelessWidget {
                           "http://img4.kuwo.cn/star/albumcover/120/72/14/592971727.jpg",
                       width: 50,
                       height: 50,
-                      errorBuilder: (context, error, stackTrace) => const FlutterLogo(),
+                      errorBuilder: (context, error, stackTrace) => Container(width: 50, height: 50, color: AppColors.color_cccccc,),
                     )),
                 const SizedBox(
                   width: 10,

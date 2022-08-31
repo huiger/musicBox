@@ -1,8 +1,10 @@
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:music_box/models/api_response/api_response.dart';
 import 'package:music_box/models/kw_entity.dart';
 import 'package:music_box/models/kw_music_set_detail.dart';
@@ -50,6 +52,7 @@ class RequestClient {
       var exception = ApiException.from(e);
       if(onError?.call(exception) != true){
         debugPrint(exception.message);
+        EasyLoading.showError(exception.message ?? "error!");
         throw exception;
       }
     }

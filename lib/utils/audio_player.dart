@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:music_box/models/music_model.dart';
+import 'package:music_box/page/player/player_logic.dart';
 import 'package:music_box/services/kw_service.dart';
 
 class AudioPlayerUtil{
@@ -166,6 +168,7 @@ class AudioPlayerUtil{
     _showPool = [];
     _audioPlayer = AudioPlayer();
     _kwService = Get.find();
+    // _playerLogic = Get.find();
     // 状态监听
     _audioPlayer.onPlayerStateChanged.listen((PlayerState playerState) {
       switch(playerState){
@@ -221,6 +224,7 @@ class AudioPlayerUtil{
   // show监听
   late List<ListenerShowModel> _showPool;
   late KwService _kwService;
+  // late PlayerLogic _playerLogic;
   bool _stopPosition = false; // 暂停进度监听，用于seekTo跳转播放缓冲时，Slider停止
   int _secondPosition = 0;
   Duration _position = const Duration(seconds: 0);
@@ -229,13 +233,16 @@ class AudioPlayerUtil{
   List<MusicModel> _musicModels = [];
 
   // 播放新音频
-  void _playNewAudio(MusicModel model) async{
+  void _playNewAudio(MusicModel model) async {
+    EasyLoading.show(status: "loading...");
     if (model.url.isEmpty) {
       model = await _getPlayerUrl(model);
     }
     await _audioPlayer.play(model.url);
     _musicModel = model;
     _showTipView(true);
+    EasyLoading.dismiss();
+    // _playerLogic.playSuccess(model);
   }
 
   // 跳转

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_box/models/music_model.dart';
+import 'package:music_box/utils/audio_player.dart';
 
 class PlayerService extends GetxService{
 
@@ -15,5 +16,11 @@ class PlayerService extends GetxService{
 
     debugPrint('播放列表：${musicList.map((e) => '${e.name} - ${e.author}').toString()}');
     return musicList;
+  }
+
+  /// 播放
+  void playerMusic(MusicModel model) async {
+    AudioPlayerUtil.listPlayerHandle(
+        musicModels: addMusic(model), musicModel: model);
   }
 }

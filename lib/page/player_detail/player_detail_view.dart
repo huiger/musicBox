@@ -48,6 +48,7 @@ class PlayerDetailPage extends StatelessWidget {
                 child: Image.network(
                   _logic.playerLogic.state.musicModel!.thumbnail,
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) => Container( color: AppColors.color_30000000,),
                 ),
                 constraints: const BoxConstraints.expand()),
             Container(
@@ -203,7 +204,7 @@ class PlayerDetailPage extends StatelessWidget {
                   size: 25,
                 ),
                 onTap: () {
-                  _logic.playerLogic.prev();
+                  // _logic.playerLogic.prev();
                 },
               ),
               Expanded(
@@ -238,7 +239,7 @@ class PlayerDetailPage extends StatelessWidget {
                   size: 25,
                 ),
                 onTap: () {
-                  _logic.playerLogic.next();
+                  // _logic.playerLogic.next();
                 },
               ),
               const SizedBox(width: 70),
@@ -297,7 +298,9 @@ class PlayerDetailPage extends StatelessWidget {
             max: _logic.playerLogic.state.musicModel?.duration.floorToDouble() ??
                 100.0,
             inactiveColor: AppColors.color_cccccc,
-            onChanged: (val) => _logic.playerLogic.moveSeekbar(val),
+            onChanged: (val) {
+              // _logic.playerLogic.moveSeekbar(val);
+            },
           ),
         );
       },

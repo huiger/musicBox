@@ -12,7 +12,7 @@ import 'package:music_box/utils/audio_player.dart';
 class KwRankingDetailLogic extends GetxController {
   final KwRankingDetailState state = KwRankingDetailState();
   final KwService service = Get.find();
-  final PlayerLogic playerLogic = Get.find();
+  final PlayerService playerService = Get.find();
 
   @override
   void onInit() async {
